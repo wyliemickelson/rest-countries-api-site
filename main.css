@@ -1,0 +1,172 @@
+/* CSS RESET */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  font-size: 14px;
+}
+/* CSS RESET */
+
+:root {
+  --clr-neutral-dm-elements: hsl(209, 23%, 22%);
+  --clr-neutral-dm-bg: hsl(207, 26%, 17%);
+
+  --clr-neutral-lm-txt: hsl(200, 15%, 8%);
+  --clr-neutral-lm-input: hsl(0, 0%, 52%);
+  --clr-neutral-lm-bg: hsl(0, 0%, 98%);
+
+  --clr-neutral-white: hsl(0, 0%, 100%);
+
+  --ff-primary: 'Nunito Sans', sans-serif;
+}
+
+body,
+button,
+input,
+select,
+option {
+  font-family: var(--ff-primary);
+  font-weight: 600;
+  border: none;
+  background-color: var(--clr-neutral-white);
+}
+
+select {
+  border-right: 1rem solid transparent
+}
+
+.bg-gray {
+  background-color: var(--clr-neutral-lm-input);
+}
+
+.bg-light {
+  background-color: var(--clr-neutral-lm-bg);
+}
+
+.bg-dark {
+  background-color: var(--clr-neutral-dm-bg);
+}
+
+.bg-white {
+  background-color: var(--clr-neutral-white);
+}
+
+.icon {
+  max-width: 1rem;
+  background-color: var(--clr-neutral-white);
+}
+
+.header {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_text {
+  font-size: clamp(1rem, 3.5vw, 2rem);
+  padding-left: clamp(0.5rem, 4vw, 5rem);
+  font-weight: 800;
+}
+
+.btn {
+  border: none;
+}
+
+.darkMode_btn {
+  white-space: nowrap;
+  gap: 0.5em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.darkMode_btn_text {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  padding-right: clamp(0.5rem, 4vw, 5rem);
+}
+
+.main {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.filter {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.filter_input {
+  background-color: var(--clr-neutral-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.search_text {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.filter_input--search {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter_input--regions {
+  max-width: 15rem;
+}
+
+
+@media (min-width: 40em) {
+  .filter {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
