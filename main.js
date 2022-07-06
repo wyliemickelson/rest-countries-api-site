@@ -96,18 +96,20 @@ function createCountryCardInfo(country) {
   cardName.classList.add('countryCard_info_name')
   cardInfo.appendChild(cardName);
 
-  // come back to reformat the title with a span for bold
-  let cardPop = document.createElement('p');
-  cardPop.textContent = country.population;
-  cardInfo.appendChild(cardPop);
-
-  let cardRegion = document.createElement('p');
-  cardRegion.textContent = country.region;
-  cardInfo.appendChild(cardRegion);
-
-  let cardCapital = document.createElement('p');
-  cardCapital.textContent = country.capital;
-  cardInfo.appendChild(cardCapital);
+  cardInfo.appendChild(createCountryCardInfoElement('Population', country.population));
+  cardInfo.appendChild(createCountryCardInfoElement('Region', country.region));
+  cardInfo.appendChild(createCountryCardInfoElement('Capital', country.capital));
 
   return cardInfo;
+}
+
+function createCountryCardInfoElement(elementName, value) {
+  let infoElement = document.createElement('p');
+  let infoElementLabel = document.createElement('span');
+  infoElementLabel.classList.add('countryCard_info_label');
+  infoElementLabel.textContent = `${elementName}: `;
+  infoElement.textContent = value;
+  infoElement.prepend(infoElementLabel);
+  
+  return infoElement;
 }
