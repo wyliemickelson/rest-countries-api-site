@@ -105,6 +105,7 @@ function createCountryCardInfo(country) {
 
 function createCountryCardInfoElement(elementName, value) {
   let infoElement = document.createElement('p');
+  infoElement.classList.add('countryCard_info_element')
   let infoElementLabel = document.createElement('span');
   infoElementLabel.classList.add('countryCard_info_label');
   infoElementLabel.textContent = `${elementName}: `;
