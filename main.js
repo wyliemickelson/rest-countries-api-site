@@ -62,7 +62,8 @@ function displayCountries(countryArr) {
 
 function createCountryCard(country) {
   let countryCard = document.createElement('div');
-  countryCard.classList.add('countryCard')
+  countryCard.classList.add('countryCard');
+  countryCard.classList.add('card_shadow_round');
 
   countryCard.appendChild(createCountryCardImg(country));
   countryCard.appendChild(createCountryCardInfo(country));

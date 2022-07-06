@@ -104,6 +104,11 @@ select {
   background-color: var(--clr-neutral-white);
 }
 
+.card_shadow_round {
+  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.25);
+  border-radius: 0.5rem;
+}
+
 .icon {
   max-width: 1rem;
   background-color: var(--clr-neutral-white);
@@ -168,6 +173,7 @@ select {
 }
 
 .filter_input--regions {
+  font-weight: 600;
   max-width: 15rem;
 }
 
@@ -183,9 +189,7 @@ select {
 
 .countryCard {
   overflow: hidden;
-  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.25);
   display: flex;
-  border-radius: 0.5rem;
   flex-direction: column;
   width: 20rem;
   background-color: var(--clr-neutral-white);
@@ -217,6 +221,65 @@ select {
 
 .countryCard_info_element + * {
   margin-top: 0.5rem;
+}
+
+/* DETAILS HTML */
+
+.details_btn_back {
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+.details_flag {
+  display: block;
+  width: min(100%, 30rem);
+  margin-top: 3rem;
+  margin-inline: auto;
+}
+
+.details_title {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.details_info {
+  margin-top: 1.5rem;
+}
+
+.details_info li + *{
+  margin-top: 0.75rem;
+}
+
+.details_info li span,
+h2 {
+  font-weight: 600;
+}
+
+.details_info_p2 {
+  margin-top: 2rem;
+}
+
+.details_borders {
+  margin-top: 3rem;
+}
+
+.border_btn {
+  width: 30%;
+  padding: 0.5rem 0;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.05);
+}
+
+.details_borders_countrylist {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (min-width: 40em) {
