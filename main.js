@@ -52,12 +52,6 @@ function createCountries(countryArr) {
   return countries;
 };
 
-window.onload = async function() {
-  const countries = await getCountries();
-  console.log(countries);
-  displayCountries(countries);
-}
-
 function displayCountries(countryArr) {
   const domCountryList = document.getElementById('countryList');
   countryArr.forEach((country) => {
@@ -113,4 +107,25 @@ function createCountryCardInfoElement(elementName, value) {
   infoElement.prepend(infoElementLabel);
   
   return infoElement;
+}
+
+window.onload = async function() {
+  const countries = await getCountries();
+  countries.sort((a, b) => a.name.localeCompare(b.name));
+  displayCountries(countries);
+
+  const regionFilterOption = document.getElementById('filterByRegion');
+  regionFilterOption.addEventListener('change', regionFilterOptionHandler);
+
+  function regionFilterOptionHandler() {
+    let selectedOption = this.options[this.selectedIndex].text;
+    const domCountryList = document.getElementById('countryList');
+    domCountryList.innerHTML = '';
+    if (selectedOption == 'Filter by Region') {
+      displayCountries(countries);
+    } else {
+      let filteredCountries = countries.filter((country) => country.region == selectedOption);
+      displayCountries(filteredCountries);
+    }
+  }
 }
