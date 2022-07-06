@@ -171,12 +171,13 @@ select {
   max-width: 15rem;
 }
 
+
 .countryList {
   margin-top: 3rem;
   margin-bottom: 6rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   gap: 4rem;
 }
 
