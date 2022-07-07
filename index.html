@@ -26,7 +26,7 @@
   </header>
 
   <main class="main">
-    <section class="filter">
+    <section id="filters" class="filter">
       <div class="card_shadow_round filter_input filter_input--search">
         <img class="icon" src="images/magnifying-glass-solid.svg">
         <input id="filterBySearch" class="search_text" type="text" placeholder="Search for a country...">
@@ -39,6 +39,41 @@
         <option>Europe</option>
         <option>Oceania</option>
       </select>
+    </section>
+
+    <section id="countryDetails" class="countryDetails hidden">
+      <button id="backToHomeBtn" class="details_btn_back card_shadow_round">
+        <img class="icon" src="images/arrow-left-long-solid.svg">
+        Back
+      </button>
+      <section class="main-container">
+        <img id="detailsFlag" class="details_flag" src="https://flagcdn.com/be.svg">
+        <div class="details">
+          <h1 id="detailsTitle" class="details_title">Belgium</h1>
+          <ul class="details_info">
+            <div>
+              <li id="nativeName"><span id="nativeNameTitle">Native Name: </span>Belgie</li>
+              <li id="population"><span>Population: </span>11,319,511</li>
+              <li id="region"><span>Region: </span>Europe</li>
+              <li id="subRegion"><span>Sub Region: </span> Western Europe</li>
+              <li id="capital"><span>Capital: </span>Brussels</li>
+            </div>
+            <div class="details_info_p2">
+              <li id="tld"><span>Top Level Domain: </span>.be</li>
+              <li id="currencies"><span>Currencies: </span>Euro</li>
+              <li id="languages"><span>Languages: </span>Dutch, French, German</li>
+            </div>
+          </ul>
+          <div class="details_borders">
+            <h2 class="details_borders_title">Border Countries:</h2>
+            <div id="borderList" class="details_borders_countrylist">
+              <button class="border_btn">France</button>
+              <button class="border_btn">Germany</button>
+              <button class="border_btn">Netherlands</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
   
     <section id="countryList" class="countryList bg-light">

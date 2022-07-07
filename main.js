@@ -1,7 +1,7 @@
 class Country {
-  constructor(name, nativeNames, population, region, subRegion, capital, domain, currencies, languages, flag) {
+  constructor(name, nativeName, population, region, subRegion, capital, domain, currencies, languages, flag, cca3, borderCountries) {
     this.name = name;
-    this.nativeNames = nativeNames;
+    this.nativeName = nativeName;
     this.population = population;
     this.region = region;
     this.subRegion = subRegion;
@@ -10,6 +10,8 @@ class Country {
     this.currencies = currencies;
     this.languages = languages;
     this.flag = flag;
+    this.cca3 = cca3;
+    this.borderCountries = borderCountries;
   }
 };
 
@@ -28,11 +30,11 @@ function createCountries(countryArr) {
   let countries = []
   countryArr.forEach(function(country) {
     let name = country.name.common;
-    let nativeNames;
+    let nativeName;
     if (country.name.nativeName){
-      nativeNames = country.name.nativeName;
+      nativeName = Object.values(country.name.nativeName)[0].official;
     } else {
-      nativeNames = country.name.official;
+      nativeName = country.name.official;
     }
     let population = country.population;
     let region = country.region;
@@ -47,7 +49,9 @@ function createCountries(countryArr) {
     let currencies = country.currencies;
     let languages = country.languages;
     let flagImgLink = country.flags.svg;
-    countries.push(new Country(name, nativeNames, population, region, subRegion, capital, domain, currencies, languages, flagImgLink));
+    let cca3 = country.cca3;
+    let borderCountries = country.borders;
+    countries.push(new Country(name, nativeName, population, region, subRegion, capital, domain, currencies, languages, flagImgLink, cca3, borderCountries));
   })
   return countries;
 };
@@ -61,12 +65,17 @@ function displayCountries(countryArr) {
 }
 
 function createCountryCard(country) {
-  let countryCard = document.createElement('div');
+  let countryCard = document.createElement('button');
   countryCard.classList.add('countryCard');
   countryCard.classList.add('card_shadow_round');
 
   countryCard.appendChild(createCountryCardImg(country));
   countryCard.appendChild(createCountryCardInfo(country));
+
+  countryCard.addEventListener('click', function() {
+    changePage(country, true);
+  });
+
   return countryCard;
 }
 
@@ -89,6 +98,7 @@ function createCountryCardInfo(country) {
   let cardName = document.createElement('h2');
   cardName.textContent = country.name;
   cardName.classList.add('countryCard_info_name')
+  cardName.classList.add('countryName');
   cardInfo.appendChild(cardName);
 
   cardInfo.appendChild(createCountryCardInfoElement('Population', country.population));
@@ -110,9 +120,76 @@ function createCountryCardInfoElement(elementName, value) {
   return infoElement;
 }
 
+function editDetail(id, newValue) {
+  // childNodes[1].nodeValue being used to change only the text and not the span before it
+  document.getElementById(id).childNodes[1].nodeValue = newValue;
+}
+
+function editCountryDetails(country) {
+  detailsSection = document.getElementById('countryDetails');
+  detailsSection.querySelector('#detailsTitle').textContent = country.name;
+  detailsSection.querySelector('#detailsFlag').src = country.flag;
+
+  editDetail('nativeName', country.nativeName);
+  editDetail('population', country.population);
+  editDetail('region', country.region);
+  editDetail('subRegion', country.subRegion);
+  editDetail('capital', country.capital);
+  editDetail('tld', country.domain);
+
+  let currencyArr = Object.values(country.currencies);
+  let currenciesStr = currencyArr.reduce(function(prev, current) {
+    return prev + ", " + current.name;
+  }, "");
+  currenciesStr = currenciesStr.slice(2);
+  editDetail('currencies', currenciesStr);
+
+  let languagesArr = Object.values(country.languages);
+  let languagesStr = languagesArr.join(", ");
+  editDetail('languages', languagesStr);
+
+  createBorderCountries(country);
+}
+
+async function createBorderCountries(country) {
+  let borderCountries = country.borderCountries;
+  const borderList = document.getElementById('borderList');
+  if (borderCountries !== undefined) {
+    const countries = await getCountries();
+    borderCountries = borderCountries.map((countryCode) => {
+      let borderCountry = countries.find(c => {
+        return c.cca3 == countryCode;
+      })
+      return borderCountry;
+    })
+    borderList.textContent = '';
+    borderCountries.forEach((border) => borderList.appendChild(createBorderCountryButton(border)));
+  } else {
+    borderList.textContent = 'None';
+  }
+}
+
+function createBorderCountryButton(country) {
+  let countryButton = document.createElement('button')
+  countryButton.classList.add('border_btn')
+  countryButton.textContent = country.name;
+  countryButton.addEventListener('click', function() {
+    changePage(country, false);
+  });
+  return countryButton;
+}
+
 function removeCountryCards() {
   const domCountryList = document.getElementById('countryList');
   domCountryList.innerHTML = '';
+}
+
+function toggleHiddenElement(element) {
+  if (element.classList.contains('hidden')) {
+    element.classList.remove('hidden');
+  } else {
+    element.classList.add('hidden');
+  }
 }
 
 window.onload = async function() {
@@ -127,6 +204,11 @@ window.onload = async function() {
   
     const searchFilter = document.getElementById('filterBySearch');
     searchFilter.addEventListener('input', searchFilterHandler);
+
+    const backToHomeBtn = document.getElementById('backToHomeBtn');
+    backToHomeBtn.addEventListener('click', function() {
+      changePage(undefined, true);
+    });
   
   }
 
@@ -146,5 +228,19 @@ window.onload = async function() {
     let searchParameter = this.value.toLowerCase();
     let filteredCountries = countries.filter((country) => country.name.toLowerCase().includes(searchParameter));
     displayCountries(filteredCountries);
+  }
+}
+
+function changePage(country, pageToggle) {
+  if (country !== undefined) {
+    editCountryDetails(country);
+  }
+  if (pageToggle) {
+    let filters = document.getElementById('filters');
+    let details = document.getElementById('countryDetails');
+    let countryList = document.getElementById('countryList');
+    toggleHiddenElement(filters);
+    toggleHiddenElement(details);
+    toggleHiddenElement(countryList);
   }
 }
