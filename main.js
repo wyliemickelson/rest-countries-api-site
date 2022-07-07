@@ -118,13 +118,17 @@ function removeCountryCards() {
 window.onload = async function() {
   const countries = await getCountries();
   countries.sort((a, b) => a.name.localeCompare(b.name));
-  displayCountries(countries);
+  let htmlFileName = window.location.pathname.split("/").pop();
+  if (htmlFileName == 'index.html') {
+    displayCountries(countries);
 
-  const regionFilterOption = document.getElementById('filterByRegion');
-  regionFilterOption.addEventListener('change', regionFilterOptionHandler);
-
-  const searchFilter = document.getElementById('filterBySearch');
-  searchFilter.addEventListener('input', searchFilterHandler);
+    const regionFilterOption = document.getElementById('filterByRegion');
+    regionFilterOption.addEventListener('change', regionFilterOptionHandler);
+  
+    const searchFilter = document.getElementById('filterBySearch');
+    searchFilter.addEventListener('input', searchFilterHandler);
+  
+  }
 
   function regionFilterOptionHandler() {
     let selectedOption = this.options[this.selectedIndex].text;
