@@ -16,10 +16,10 @@
   <script src="main.js"></script>
 </head>
 
-<body class="bg-light">
-  <header class="header bg-white">
+<body id="page" class="bg-light">
+  <header id="header" class="header bg-white">
     <h1 class="header_text">Where in the world?</h1>
-    <button class="btn darkMode_btn">
+    <button id="darkModeBtn" class="btn darkMode_btn">
       <img class="icon" src="images/moon-solid.svg">
       <p class="darkMode_btn_text">Dark Mode</p>
     </button>
@@ -27,7 +27,7 @@
 
   <main class="main">
     <section id="filters" class="filter">
-      <div class="card_shadow_round filter_input filter_input--search">
+      <div class="card_shadow_round filter_input filter_input--search bg-white">
         <img class="icon" src="images/magnifying-glass-solid.svg">
         <input id="filterBySearch" class="search_text" type="text" placeholder="Search for a country...">
       </div>
@@ -42,7 +42,7 @@
     </section>
 
     <section id="countryDetails" class="countryDetails hidden">
-      <button id="backToHomeBtn" class="details_btn_back card_shadow_round">
+      <button id="backToHomeBtn" class="btn details_btn_back card_shadow_round">
         <img class="icon" src="images/arrow-left-long-solid.svg">
         Back
       </button>
@@ -76,7 +76,7 @@
       </section>
     </section>
   
-    <section id="countryList" class="countryList bg-light">
+    <section id="countryList" class="countryList">
       
     </section>
   </main>

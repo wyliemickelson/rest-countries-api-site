@@ -69,6 +69,9 @@ async function main() {
       let countryCard = document.createElement('button');
       countryCard.classList.add('countryCard');
       countryCard.classList.add('card_shadow_round');
+      if (darkMode) {
+        countryCard.classList.add('bg-dark-elements');
+      }
     
       countryCard.appendChild(this.createCountryCardImg(country));
       countryCard.appendChild(this.createCountryCardInfo(country));
@@ -123,7 +126,11 @@ async function main() {
     
     createBorderCountryButton: function(country) {
       let countryButton = document.createElement('button')
-      countryButton.classList.add('border_btn')
+      countryButton.classList.add('border_btn');
+      countryButton.classList.add('btn');
+      if (darkMode) {
+        countryButton.classList.add('bg-dark-elements');
+      }
       countryButton.textContent = country.name;
       countryButton.addEventListener('click', function() {
         eventHandlers.changePage(false, country);
@@ -229,6 +236,47 @@ async function main() {
       let filteredCountries = countries.filter((country) => country.name.toLowerCase().includes(searchParameter));
       displayDOM.displayCountries(filteredCountries);
     },
+
+    darkModeHandler: function() {
+      let addBg = 'bg-dark';
+      let addEleBg = 'bg-dark-elements';
+      let removeBg = 'bg-light';
+      let removeEleBg = 'bg-white';
+      if (!darkMode) {
+        addBg = 'bg-light';
+        addEleBg = 'bg-white';
+        removeBg = 'bg-dark';
+        removeEleBg = 'bg-dark-elements';
+      }
+      const body = document.getElementById('page');
+      body.classList.remove(removeBg)
+      body.classList.add(addBg)
+
+      const header = document.getElementById('header');
+      header.classList.remove(removeEleBg);
+      header.classList.add(addEleBg);
+
+      const darkModeBtn = document.getElementById('darkModeBtn');
+      darkModeBtn.classList.add(addEleBg);
+
+      const filters = document.getElementById('filters');
+      Array.from(filters.children).forEach((child) => {
+        child.classList.remove(removeEleBg);
+        child.classList.add(addEleBg);
+      })
+
+      const countryCardList = document.getElementById('countryList');
+      Array.from(countryCardList.children).forEach((child) => {
+        child.classList.remove(removeEleBg);
+        child.classList.add(addEleBg);
+      }) 
+
+      let buttons = Array.from(document.getElementsByClassName('btn'));
+      buttons.forEach((btn) => {
+        btn.classList.remove(removeEleBg);
+        btn.classList.add(addEleBg);
+      })
+    },
   
     changePage: function (pageToggle, country) {
       if (country !== undefined) {
@@ -246,28 +294,31 @@ async function main() {
   }
 
   const countries = createCountries(await getCountries());
+  let darkMode = false;
+
+  const regionFilterOption = document.getElementById('filterByRegion');
+  regionFilterOption.addEventListener('change', () => {
+    eventHandlers.regionFilterOptionHandler(regionFilterOption, countries);
+  });
+  
+  const searchFilter = document.getElementById('filterBySearch');
+  searchFilter.addEventListener('input', () => {
+    eventHandlers.searchFilterHandler(searchFilter, countries);
+  });
+
+  const darkModeBtn = document.getElementById('darkModeBtn');
+  darkModeBtn.addEventListener('click', () => {
+    darkMode = !darkMode;
+    eventHandlers.darkModeHandler();
+  });
+
+  const backToHomeBtn = document.getElementById('backToHomeBtn');
+  backToHomeBtn.addEventListener('click', () => {
+    eventHandlers.changePage(true);
+  });
 
   countries.sort((a, b) => a.name.localeCompare(b.name));
-  let htmlFileName = window.location.pathname.split("/").pop();
-  if (htmlFileName == 'index.html') {
-    displayDOM.displayCountries(countries);
-
-    const regionFilterOption = document.getElementById('filterByRegion');
-    regionFilterOption.addEventListener('change', () => {
-      eventHandlers.regionFilterOptionHandler(regionFilterOption, countries);
-    });
-  
-    const searchFilter = document.getElementById('filterBySearch');
-    searchFilter.addEventListener('input', () => {
-      eventHandlers.searchFilterHandler(searchFilter, countries);
-    });
-
-    const backToHomeBtn = document.getElementById('backToHomeBtn');
-    backToHomeBtn.addEventListener('click', () => {
-      eventHandlers.changePage(true);
-    });
-  
-  }
+  displayDOM.displayCountries(countries);
 }
 
 main();
