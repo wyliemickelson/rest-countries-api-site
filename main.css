@@ -144,6 +144,11 @@ a.nostyle:visited {
   fill: var(--clr-neutral-white);
 }
 
+button:hover,
+select:hover {
+  opacity: 50%;
+}
+
 .header {
   padding: 2rem 1rem;
   display: flex;
@@ -212,7 +217,7 @@ a.nostyle:visited {
   margin-bottom: 6rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   gap: 4rem;
 }
 
@@ -266,8 +271,8 @@ a.nostyle:visited {
   margin: 0 auto;
 }
 
-.main-container {
-  margin-top: 3rem;
+.details_container {
+  margin-top: clamp(3rem, 10%, 10rem);
 }
 
 .details_flag {
@@ -335,10 +340,6 @@ h2 {
 
 @media (min-width: 60em) {
 
-  html {
-    font-size: 16px;
-  }
-
   .main-container > * {
     margin-inline: 0;
   }
@@ -346,6 +347,7 @@ h2 {
   .main-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: min(10%, 8rem);
   }
 

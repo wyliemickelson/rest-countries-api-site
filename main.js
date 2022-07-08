@@ -40,7 +40,7 @@ async function main() {
       } else {
         nativeName = country.name.official;
       }
-      let population = country.population;
+      let population = country.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       let region = country.region;
       let subRegion = country.subregion;
       let capital = country.capital;
@@ -289,6 +289,7 @@ async function main() {
         let filters = document.getElementById('filters');
         let details = document.getElementById('countryDetails');
         let countryList = document.getElementById('countryList');
+        document.querySelector('.main-container').classList.toggle('details_container');
         displayDOM.toggleHiddenElement(filters);
         displayDOM.toggleHiddenElement(details);
         displayDOM.toggleHiddenElement(countryList);
