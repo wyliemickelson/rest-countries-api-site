@@ -134,8 +134,14 @@ a.nostyle:visited {
 }
 
 .icon {
+  width: 50px;
   max-width: 1rem;
   background-color: var(--clr-neutral-white);
+}
+
+.icon--dark {
+  background-color: var(--clr-neutral-dm-elements);
+  fill: var(--clr-neutral-white);
 }
 
 .header {

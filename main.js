@@ -258,6 +258,9 @@ async function main() {
 
       const darkModeBtn = document.getElementById('darkModeBtn');
       darkModeBtn.classList.add(addEleBg);
+      
+      let icons = Array.from(document.getElementsByClassName('icon'));
+      icons.forEach((icon) => icon.classList.toggle('icon--dark'));
 
       const filters = document.getElementById('filters');
       Array.from(filters.children).forEach((child) => {
